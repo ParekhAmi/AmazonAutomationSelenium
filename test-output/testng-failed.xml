@@ -6,8 +6,8 @@
       <class name="tests.TestsFromSearchToCheckout">
         <methods>
           <include name="launchBrowserAndWebsite"/>
-          <include name="TC_1_womenSunshineTshirtgetValue"/>
           <include name="exitBrowser"/>
+          <include name="TC_2_todayDeal"/>
         </methods>
       </class> <!-- tests.TestsFromSearchToCheckout -->
     </classes>

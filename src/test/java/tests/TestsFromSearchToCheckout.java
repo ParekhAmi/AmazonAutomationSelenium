@@ -3,7 +3,6 @@ package tests;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
-//import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -24,13 +23,12 @@ public class TestsFromSearchToCheckout {
 
 	static WebDriver driver;
 	static WebElement dropdownAll, searchBox, womenTomteamell, btnSearch, priceWomenReebok, size, addToCart, cartCount,
-			price26, allMenu, newReleaeses, rustic, rizone, women, clothing, ul;
+			homeDeals, dreametechProRobot, buttonNoThanks;
 	Select select, selectSize;
-	static String price, subtotalOfSunshineTshirt;
+	static String price26, subtotalOfSunshineTshirt, price320, subtotalVaccumProRobot;
 
 	static SoftAssert softAssert1 = new SoftAssert();
 	static SoftAssert softAssert2 = new SoftAssert();
-	static SoftAssert softAssert3 = new SoftAssert();
 
 	// @Parameters("browser")
 //	public static void launchBrowserAndWebsite(String browser) throws Exception {
@@ -68,7 +66,7 @@ public class TestsFromSearchToCheckout {
 	}
 
 	@Test
-	public void TC_1_womenSunshineTshirtgetValue() throws InterruptedException {
+	public void TC_1_verifyWomenSunshineTshirtValue() {
 
 		dropdownAll = driver.findElement(By.id("searchDropdownBox"));
 		select = new Select(dropdownAll);
@@ -90,69 +88,58 @@ public class TestsFromSearchToCheckout {
 		selectSize = new Select(size);
 		selectSize.selectByVisibleText(" Small ");
 
-		// addToCart = driver.findElement(By.id("add-to-cart-button"));
-		WebDriverWait waitaddToCart = new WebDriverWait(driver, Duration.ofSeconds(4));
-		waitaddToCart.until(ExpectedConditions.elementToBeClickable(By.id("add-to-cart-button"))).click();
-		//addToCart.click();
+		WebDriverWait waitaddToCart = new WebDriverWait(driver, Duration.ofSeconds(8));
+		addToCart = waitaddToCart
+				.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@title='Add to Shopping Cart']")));
+		addToCart.click();
 
 		cartCount = driver.findElement(By.id("nav-cart-count"));
 		cartCount.click();
 
-		price26 = driver.findElement(By.className("a-spacing-mini"));
+		price26 = driver.findElement(By.className("a-spacing-mini")).getText();
 
-		subtotalOfSunshineTshirt = driver.findElement(By.xpath("//div[@data-name='Subtotals']"))
-				.getText();
+		System.out.println(price26);
+		subtotalOfSunshineTshirt = driver.findElement(By.xpath("//div[@data-name='Subtotals']")).getText();
 
 		System.out.println(subtotalOfSunshineTshirt);
 
-		softAssert1.assertEquals(subtotalOfSunshineTshirt, "Subtotal (1 item): $25.99");
+		softAssert1.assertEquals(price26, subtotalOfSunshineTshirt);
 		softAssert1.assertAll();
 	}
 
 	@Test
-	public void TC_2_todayDeal() throws InterruptedException {
+	public void TC_2_todayDeal() {
 
-		allMenu = driver.findElement(By.id("nav-hamburger-menu"));
-		HoverAndClick(driver, allMenu, null);
+		driver.findElement(By.xpath("//a[@href='/ref=nav_logo']")).click();
 
-		newReleaeses = driver
-				.findElement(By.xpath("//a[@href='/gp/new-releases/?ref_=nav_em_cs_newreleases_0_1_1_3']"));
-		newReleaeses.click();
+		driver.findElement(By.xpath("//a[@href='/deals?ref_=nav_cs_gb']")).click();
 
-		rustic = driver.findElement(By.xpath(
-				"//img[@src='https://images-na.ssl-images-amazon.com/images/I/81oj-A3CYHL._AC_UL450_SR450,320_.jpg']"));
-		HoverAndClick(driver, rustic, null);
+		homeDeals = driver.findElement(
+				By.xpath("//img[@src='https://m.media-amazon.com/images/G/15/Deals_Page/Assets/US/Home_white.png']"));
+		homeDeals.click();
 
-		rizone = driver.findElement(By.xpath(
-				"//a[@href='/s/ref=bl_dp_s_web_0?ie=UTF8&search-type=ss&index=handmade&field-keywords=RIZONE']"));
-		HoverAndClick(driver, rizone, null);
+		dreametechProRobot = driver.findElement(
+				By.xpath("//img[@src='https://m.media-amazon.com/images/I/41ewVm+NRPL._AC_UF226,226_FMjpg_.jpg']"));
+		dreametechProRobot.click();
 
-		searchBox = driver.findElement(By.xpath("//input[contains(@value,'RIZONE')]"));
-		System.out.println(searchBox.getAttribute("value"));
+		WebDriverWait waitaddToCart = new WebDriverWait(driver, Duration.ofSeconds(8));
+		addToCart = waitaddToCart
+				.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@title='Add to Shopping Cart']")));
+		addToCart.click();
 
-		softAssert2.assertEquals(searchBox.getAttribute("value"), "RIZONE");
+		WebDriverWait waitCart = new WebDriverWait(driver, Duration.ofSeconds(10));
+		cartCount = driver.findElement(By.id("nav-cart-count"));
+		waitCart.until(ExpectedConditions.elementToBeClickable(cartCount)).click();
+		
+		//cartCount.click();
+
+		price320 = driver.findElement(By.className("a-spacing-mini")).getText();
+
+		subtotalVaccumProRobot = driver.findElement(By.xpath("//div[@data-name='Subtotals']")).getText();
+
+		softAssert2.assertEquals(price320, subtotalVaccumProRobot);
 		softAssert2.assertAll();
 	}
-//	
-//	@Test
-//	public void TC_3_listWomen() throws InterruptedException {
-//		
-
-//		
-//		allMenu = driver.findElement(By.id("nav-hamburger-menu"));
-//		HoverAndClick(driver, allMenu, null);
-//
-//		ul = driver.findElement(By.xpath("//div[@id='hmenu-content']//ul"));
-
-//		
-//		List<WebElement> list = driver.findElements(By.xpath("//div[@id='hmenu-content']/ul/li"));
-//		System.out.println(list);
-//		for (WebElement clothes : list) {
-//			System.out.println(clothes.getText());
-//		}
-
-	// softAssert3.assertEquals(,);
-	// }
 
 	@AfterTest
 	public void exitBrowser() {
