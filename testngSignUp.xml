@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite_SignUp">
+	<test thread-count="1" parallel="methods" name="SignUpTests">
+		<!-- <groups> <run> <include name="SignUp" /> </run> </groups> -->
+		<classes>
+			<class name="tests.TCs_signUp" />
+		</classes>
+	</test> <!-- Test -->
+</suite> <!-- Suite -->
