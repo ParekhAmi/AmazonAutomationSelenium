@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Suite_SignUp]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="SignUp(failed)">
+    <groups>
+      <run>
+        <include name="SignUp"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="tests.TCs_signUp">
+        <methods>
+          <include name="TC_1_emptyFirstAndLastName"/>
+          <include name="TC_5_wrongPasswordAgain"/>
+          <include name="TC_6_invalidEmail"/>
+          <include name="TC_3_emptyPassword"/>
+          <include name="TC_4_emptyPasswordAgain"/>
+          <include name="TC_2_emptyMobileOrEmail"/>
+        </methods>
+      </class> <!-- tests.TCs_signUp -->
+    </classes>
+  </test> <!-- SignUp(failed) -->
+</suite> <!-- Failed suite [Suite_SignUp] -->
