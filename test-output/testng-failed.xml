@@ -3,13 +3,13 @@
 <suite name="Failed suite [Default suite]" guice-stage="DEVELOPMENT">
   <test thread-count="5" name="Default test(failed)">
     <classes>
-      <class name="tests.TestsFromSearchToCheckout">
+      <class name="tests.TCs_Search">
         <methods>
-          <include name="launchBrowserAndWebsite"/>
+          <include name="initializeBrowser"/>
+          <include name="TC_1_searchPerfume"/>
           <include name="exitBrowser"/>
-          <include name="TC_2_todayDeal"/>
         </methods>
-      </class> <!-- tests.TestsFromSearchToCheckout -->
+      </class> <!-- tests.TCs_Search -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->
