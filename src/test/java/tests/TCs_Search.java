@@ -3,6 +3,7 @@ package tests;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
@@ -28,6 +29,7 @@ public class TCs_Search {
 	static WebDriver driver;
 
 	SoftAssert softAssert1 = new SoftAssert();
+	SoftAssert softAssert2 = new SoftAssert();
 
 	@BeforeTest
 	public void initializeBrowser() {
@@ -43,7 +45,7 @@ public class TCs_Search {
 	public void TC_1_searchPerfume() throws IOException {
 		driver.get(PropertiesFile.url);
 
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2000));
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
 
 		WebElement All = driver.findElement(By.id("searchDropdownBox"));
 
@@ -66,6 +68,23 @@ public class TCs_Search {
 		System.out.println(actErr);
 
 		softAssert1.assertEquals(actErr, expecErr);
+		softAssert1.assertAll();
+	}
+
+	@Test
+	public void searchSizeOfCoffeeMakerTypes() {
+		driver.get(PropertiesFile.url);
+
+		driver.findElement(By.id("twotabsearchtextbox")).sendKeys("coffee maker");
+		List<WebElement> cofeeMakerTypes = driver
+				.findElements(By.xpath("//div[@class='cards_carousel_widget-sug-container-top']//a"));
+		System.out.println(cofeeMakerTypes.size());
+
+		for (WebElement coffeeMakerType : cofeeMakerTypes) {
+			System.out.println(coffeeMakerType.getText());
+		}
+
+		softAssert2.assertEquals(cofeeMakerTypes.size(), 6);
 		softAssert1.assertAll();
 	}
 
