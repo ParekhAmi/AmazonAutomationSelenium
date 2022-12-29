@@ -17,6 +17,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -72,7 +73,7 @@ public class TCs_Search {
 	}
 
 	@Test
-	public void searchSizeOfCoffeeMakerTypes() {
+	public void TC_2_searchSizeOfCoffeeMakerTypes() {
 		driver.get(PropertiesFile.url);
 
 		driver.findElement(By.id("twotabsearchtextbox")).sendKeys("coffee maker");
@@ -85,7 +86,29 @@ public class TCs_Search {
 		}
 
 		softAssert2.assertEquals(cofeeMakerTypes.size(), 6);
-		softAssert1.assertAll();
+		softAssert2.assertAll();
+	}
+
+	@Test
+	public void TC_3_flowerPotFromPatioMenu() {
+		driver.get(PropertiesFile.url);
+		
+		Select s = new Select(driver.findElement(By.id("searchDropdownBox")));
+		s.selectByValue("search-alias=lawngarden");
+		
+		driver.findElement(By.id("twotabsearchtextbox")).sendKeys("flower pots"+ Keys.ENTER);
+		
+		
+		WebElement flowerPot = driver.findElement(By.xpath("//img[@data-image-index='14']"));
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView(true);", flowerPot);
+		
+		flowerPot.click();
+		String actualTitle = driver.findElement(By.xpath("//h1[@id='title']/span")).getText();
+		String expecTitle = "Plant Pots, 3 Packs 8 inch Planters with Drainage Hole Saucer, Plastic Flower Pots for Indoor Plants Retro Decorative for Outdoor Garden Container Sets(Copper-8 inch)";
+		
+		System.out.println(actualTitle);
+		Assert.assertEquals(actualTitle, expecTitle);
 	}
 
 	@AfterTest
